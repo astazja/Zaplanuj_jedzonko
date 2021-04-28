@@ -3,6 +3,7 @@ package pl.coderslab.dao;
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Admin;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.RecipePlan;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
@@ -17,6 +18,11 @@ public class PlanDao {
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name = ?, description = ?, created = ?, admin_id = ? WHERE id = ?;";
     private static final String READ_LAST_ADDED_PLAN = "SELECT * FROM plan  WHERE id = (SELECT MAX(id) FROM plan)";
     private static final String NUMBER_OF_ADDED_PLAN = "SELECT COUNT(*) FROM plan WHERE admin_id = ?;";
+    private static final String READ_PLAN_DETAILS_QUERY = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description\n" +
+            "FROM `recipe_plan`\n" +
+            "         JOIN day_name on day_name.id=day_name_id\n" +
+            "         JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
+            "ORDER by day_name.display_order, recipe_plan.display_order;";
 
     public Plan readLastAdded() {
         Plan lastPlan = new Plan();
@@ -155,5 +161,26 @@ public class PlanDao {
             e.printStackTrace();
         }
         return null;
+    }
+    public List<RecipePlan> readPlanDetails(Integer planId) {
+        List<RecipePlan> recipePlanList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(READ_PLAN_DETAILS_QUERY);
+            statement.setInt(1, planId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                RecipePlan recipePlan = new RecipePlan();
+                recipePlan.setId(resultSet.getInt("id"));
+                recipePlan.setRecipeId(resultSet.getInt("recipe_id"));
+                recipePlan.setMealName(resultSet.getString("meal_name"));
+                recipePlan.setDisplayOrder(resultSet.getInt("display_order"));
+                recipePlan.setDayNameId(resultSet.getInt("day_name_id"));
+                recipePlan.setPlanId(resultSet.getInt("plan_id"));
+                recipePlanList.add(recipePlan);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipePlanList;
     }
 }
