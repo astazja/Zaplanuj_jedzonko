@@ -4,14 +4,22 @@ public class DayName {
 
     private int id;
     private String name;
-    private int displayOrder;
+    private int display_order;
+
+    public DayName() {
+    }
+
+    public DayName(String name, int displayOrder) {
+        this.name = name;
+        this.display_order = displayOrder;
+    }
 
     @Override
     public String toString() {
         return "DayName{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", displayOrder=" + displayOrder +
+                ", displayOrder=" + display_order +
                 '}';
     }
 
@@ -32,10 +40,11 @@ public class DayName {
     }
 
     public int getDisplayOrder() {
-        return displayOrder;
+        return display_order;
     }
 
     public void setDisplayOrder(int displayOrder) {
-        this.displayOrder = displayOrder;
+        this.display_order = displayOrder;
     }
+
 }

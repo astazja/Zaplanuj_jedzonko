@@ -15,21 +15,22 @@ public class DayNameDao {
     private static final String FIND_ALL_DAY_NAMES = "SELECT * FROM day_name";
 
     public List<DayName> findAll() {
-        List<DayName> DayNameList = new ArrayList<>();
-        try (Connection connection = DbUtil.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(FIND_ALL_DAY_NAMES);
-            ResultSet resultSet = statement.executeQuery();
+        List<DayName> dayNameList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_DAY_NAMES);
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 DayName dayName = new DayName();
+                dayName.setId(resultSet.getInt("id"));
                 dayName.setName(resultSet.getString("name"));
-                dayName.setDisplayOrder(resultSet.getInt("displayOrder"));
-                DayNameList.add(dayName);
+                dayName.setDisplayOrder(resultSet.getInt("display_order"));
+                dayNameList.add(dayName);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return DayNameList;
+        return dayNameList;
 
     }
 }
