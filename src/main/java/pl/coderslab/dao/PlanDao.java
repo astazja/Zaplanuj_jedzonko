@@ -20,20 +20,20 @@ public class PlanDao {
     public Plan readLastAdded(Plan plan) {
         Plan lastPlan = new Plan();
         try (Connection connection = DbUtil.getConnection(); PreparedStatement statement = connection.prepareStatement(READ_LAST_ADDED_PLAN);) {
-            statement.setInt(1, plan.getId());
+            statement.setInt(1, lastPlan.getId());
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    plan.setId(resultSet.getInt("id"));
-                    plan.setName(resultSet.getString("name"));
-                    plan.setDescription(resultSet.getString("description"));
-                    plan.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
-                    plan.setAdminId(resultSet.getInt("admin_id"));
+                    lastPlan.setId(resultSet.getInt("id"));
+                    lastPlan.setName(resultSet.getString("name"));
+                    lastPlan.setDescription(resultSet.getString("description"));
+                    lastPlan.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
+                    lastPlan.setAdminId(resultSet.getInt("admin_id"));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return plan;
+        return lastPlan;
     }
 
     public Plan create(Plan plan) {
