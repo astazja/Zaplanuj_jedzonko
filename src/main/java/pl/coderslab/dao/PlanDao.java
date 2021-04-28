@@ -15,6 +15,25 @@ public class PlanDao {
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * from plan where id = ?;";
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name = ?, description = ?, created = ?, admin_id = ? WHERE id = ?;";
+    private static final String READ_LAST_ADDED_PLAN = "SELECT * FROM plan  WHERE id = (SELECT MAX(id) FROM plan)";
+
+    public Plan readLastAdded() {
+        Plan lastPlan = new Plan();
+        try (Connection connection = DbUtil.getConnection(); PreparedStatement statement = connection.prepareStatement(READ_LAST_ADDED_PLAN);) {
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    lastPlan.setId(resultSet.getInt("id"));
+                    lastPlan.setName(resultSet.getString("name"));
+                    lastPlan.setDescription(resultSet.getString("description"));
+                    lastPlan.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
+                    lastPlan.setAdminId(resultSet.getInt("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastPlan;
+    }
 
     public Plan create(Plan plan) {
         try (Connection connection = DbUtil.getConnection();
