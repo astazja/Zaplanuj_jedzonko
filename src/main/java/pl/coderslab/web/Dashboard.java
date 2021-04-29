@@ -28,6 +28,7 @@ public class Dashboard extends HttpServlet {
             request.setAttribute("lastPlan", planDao.readLastAdded());
 
 
+
             getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
         }
     }
