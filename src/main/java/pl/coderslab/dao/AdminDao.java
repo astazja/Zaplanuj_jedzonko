@@ -18,6 +18,7 @@ public class AdminDao {
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT * FROM admins;";
     private static final String READ_ADMIN_QUERY = "SELECT * from admins where id = ?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE id = ?;";
+    private static final String AUTH_ADMIN_QUERY = "SELECT * FROM admins WHERE email = ?";
 
     public Admin create(Admin admin) {
         try (Connection connection = DbUtil.getConnection();
@@ -134,5 +135,33 @@ public class AdminDao {
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public Admin auth(String email, String password) {
+        Admin admin = new Admin();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(AUTH_ADMIN_QUERY)
+        ) {
+            statement.setString(1, email);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    admin.setId(resultSet.getInt("id"));
+                    admin.setFirstName(resultSet.getString("first_name"));
+                    admin.setLastName(resultSet.getString("last_name"));
+                    admin.setEmail(resultSet.getString("email"));
+                    admin.setPassword(resultSet.getString("password"));
+                    admin.setSuperadmin(resultSet.getByte("superadmin"));
+                    admin.setEnable(resultSet.getByte("enable"));
+                }
+                if (BCrypt.checkpw(password, admin.getPassword())) {
+                    return admin;
+                } else {
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
