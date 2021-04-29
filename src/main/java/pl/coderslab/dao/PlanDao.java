@@ -7,7 +7,9 @@ import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlanDao {
     private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name,description,created,admin_id) VALUES (?,?,?,?);";
@@ -162,24 +164,31 @@ public class PlanDao {
         }
         return null;
     }
-    public List<RecipePlanDetails> readPlanDetails(Integer planId) {
+    public Map<String, List<RecipePlanDetails>> readPlanDetails(Integer planId) {
+        Map<String , List<RecipePlanDetails>> planDetailsMap = new HashMap<>();
         List<RecipePlanDetails> recipePlanDetailsList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(READ_PLAN_DETAILS_QUERY);
             statement.setInt(1, planId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                String dayName = resultSet.getString("day_name");
+
                 RecipePlanDetails recipePlanDetails = new RecipePlanDetails();
-                recipePlanDetails.setDayName(resultSet.getString("day_name"));
                 recipePlanDetails.setMealName(resultSet.getString("meal_name"));
                 recipePlanDetails.setRecipeName(resultSet.getString("recipe_name"));
                 recipePlanDetails.setRecipeDescription(resultSet.getString("recipe_description"));
                 recipePlanDetails.setRecipeId(resultSet.getInt("recipe_id"));
                 recipePlanDetailsList.add(recipePlanDetails);
+                if(planDetailsMap.get(dayName) == null) {
+                    planDetailsMap.put(dayName, recipePlanDetailsList);
+                }else {
+                    planDetailsMap.get(dayName).addAll(recipePlanDetailsList);
+                }
             }
         }catch (SQLException e) {
             e.printStackTrace();
         }
-        return recipePlanDetailsList;
+        return planDetailsMap;
     }
 }

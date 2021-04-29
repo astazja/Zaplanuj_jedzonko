@@ -24,7 +24,7 @@ public class AppPlanDetails extends HttpServlet {
         PlanDao planDao = new PlanDao();
 
         Plan plan = planDao.read(id);
-        List<RecipePlanDetails> recipePlanDetailsList = planDao.readPlanDetails(id);
+        Map<String , List<RecipePlanDetails>> recipePlanDetailsList = planDao.readPlanDetails(id);
 
 
         request.setAttribute("plan", plan);
