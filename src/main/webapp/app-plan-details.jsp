@@ -101,24 +101,28 @@
                     </div>
 
                     <table class="table">
-                        <c:forEach var="recipePlan" items="${recipePlanList}">
+<%--                        <c:set var="dayName" value=""/>--%>
+                        <c:forEach var="recipePlanList" items="${recipePlanList}">
+
+<%--                            <c:if test="${dayName != recipePlanList.dayName}">--%>
                             <thead>
                             <tr class="d-flex">
-                                <th class="col-2"><c:out value="${recipePlan.dayNameId.name}"/></th>
+                                <th class="col-2"><c:out value="${recipePlanList.dayName}"/>
                                 <th class="col-7"></th>
                                 <th class="col-1"></th>
                                 <th class="col-2"></th>
                             </tr>
                             </thead>
+<%--                            </c:if>--%>
                             <tbody class="text-color-lighter">
                             <tr class="d-flex">
-                                <td class="col-2"><c:out value="${recipePlan.mealName}"/></td>
-                                <td class="col-7"><c:out value="${recipePlan.recipeId.name}"/></td>
+                                <td class="col-2"><c:out value="${recipePlanList.mealName}"/></td>
+                                <td class="col-7"><c:out value="${recipePlanList.recipeName}"/></td>
                                 <td class="col-1 center">
                                     <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                 </td>
                                 <td class="col-2 center">
-                                    <a href="<c:url value="/app/recipe/details?id=${recipePlan.recipeId}"/>" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                    <a href="<c:url value="/app/recipe/details?id=${recipePlanList.recipeId}"/>" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                 </td>
                             </tr>
                             </tbody>
@@ -143,7 +147,7 @@
                                 <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                             </td>
                             <td class="col-2 center">
-                                <a href="app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                <a href="" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                             </td>
                         </tr>
                         <tr class="d-flex">
