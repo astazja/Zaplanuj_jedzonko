@@ -40,10 +40,15 @@
                         <input type="text" class="form-control" id="password" name="password" placeholder="podaj hasło">
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" id="repassword" name="password" placeholder="powtórz hasło">
+                        <input type="text" class="form-control" id="repassword" name="repassword" placeholder="powtórz hasło">
                     </div>
                     <button class="btn btn-color rounded-0" type="submit">Zarejestruj</button>
                 </form>
+                <c:if test="${not empty warnings}">
+                    <c:forEach items="${warnings}" var="warning">
+                        <div class="alert alert-danger" role="alert">${warning}</div>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
     </div>
