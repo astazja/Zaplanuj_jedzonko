@@ -29,6 +29,26 @@
                             <c:out value="${success}"></c:out>
                         </div>
                     </c:if>
+
+                    <c:if test="${not empty warnings}">
+                        <c:forEach items="${warnings}" var="warning">
+                            <div class="alert alert-danger" role="alert">${warning}</div>
+                        </c:forEach>
+                    </c:if>
+
+                    <c:if test="${not empty loginSuccess}">
+                        <c:if test="${loginSuccess == true}">
+                            <div class="alert alert-success" role="alert">
+                                Zalogowano!
+                            </div>
+                        </c:if>
+
+                        <c:if test="${loginSuccess == false}">
+                            <div class="alert alert-danger" role="alert">
+                                Błąd!
+                            </div>
+                        </c:if>
+                    </c:if>
                     <h1 class="text-color-darker">Logowanie</h1>
                     <div class="form-group">
                         <input type="text" class="form-control" id="email" name="email" placeholder="podaj adres email">
