@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,12 @@ public class Login extends HttpServlet {
             Admin admin = adminDao.auth(email, password);
 
             if (admin != null){
+                HttpSession session = req.getSession();
+
+                if (session.getAttribute("userId") == null){
+                    session.setAttribute("userId", admin.getId());
+                }
+
                 req.setAttribute("loginSuccess", true);
             } else {
                 req.setAttribute("loginSuccess", false);
