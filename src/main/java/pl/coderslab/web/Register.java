@@ -1,9 +1,16 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.AdminDao;
+import pl.coderslab.model.Admin;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @WebServlet(name = "Register", value = "/register")
 public class Register extends HttpServlet {
@@ -15,7 +22,51 @@ public class Register extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<String> warnings = new ArrayList<>();
 
-        getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
+        String name = req.getParameter("name");
+        String surname = req.getParameter("surname");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+        String repassword = req.getParameter("repassword");
+
+        if (name.length() < 1){
+            warnings.add("Imie nie zostało podane!");
+        }
+
+        if (surname.length() < 1){
+            warnings.add("Nazwisko nie zostało podane!");
+        }
+
+        if (email.length() < 1){
+            warnings.add("Email nie został podany!");
+        }
+
+        if (password.length() < 1){
+            warnings.add("Hasło nie zostało podane!");
+        }
+
+        if (!password.equals(repassword)){
+            warnings.add("Podane hasła się nie zgadzają!");
+        }
+
+        req.setAttribute("warnings", warnings);
+
+        if (warnings.size() > 0) {
+            getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
+
+        } else {
+            req.setAttribute("success", "Pomyślnie zarejestrowano, teraz się zaloguj.");
+
+            AdminDao adminDao = new AdminDao();
+            Admin admin = new Admin();
+            admin.setFirstName(name);
+            admin.setLastName(surname);
+            admin.setEmail(email);
+            adminDao.create(admin);
+
+            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+        }
+
     }
 }

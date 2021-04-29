@@ -24,6 +24,11 @@
         <div class="border-dashed view-height">
             <div class="container w-25">
                 <form class="padding-small text-center" action="/login" method="post">
+                    <c:if test="${not empty success}">
+                        <div class="alert alert-success" role="alert">
+                            <c:out value="${success}"></c:out>
+                        </div>
+                    </c:if>
                     <h1 class="text-color-darker">Logowanie</h1>
                     <div class="form-group">
                         <input type="text" class="form-control" id="email" name="email" placeholder="podaj adres email">
