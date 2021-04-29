@@ -7,9 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "Register", value = "/register")
@@ -55,7 +53,7 @@ public class Register extends HttpServlet {
 
             getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
         } else {
-            req.setAttribute("success", "Pomyślnie zarejestrowano, teraz się zaloguj.");
+            req.setAttribute("registrationSuccess", "Pomyślnie zarejestrowano, teraz się zaloguj.");
 
             AdminDao adminDao = new AdminDao();
             Admin admin = new Admin();
