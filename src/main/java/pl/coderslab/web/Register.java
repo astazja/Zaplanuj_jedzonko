@@ -50,11 +50,10 @@ public class Register extends HttpServlet {
             warnings.add("Podane hasła się nie zgadzają!");
         }
 
-        req.setAttribute("warnings", warnings);
-
         if (warnings.size() > 0) {
-            getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
+            req.setAttribute("warnings", warnings);
 
+            getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
         } else {
             req.setAttribute("success", "Pomyślnie zarejestrowano, teraz się zaloguj.");
 
@@ -63,6 +62,9 @@ public class Register extends HttpServlet {
             admin.setFirstName(name);
             admin.setLastName(surname);
             admin.setEmail(email);
+            admin.setPassword(password);
+            admin.setSuperadmin((byte) 1);
+            admin.setEnable((byte) 1);
             adminDao.create(admin);
 
             getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
