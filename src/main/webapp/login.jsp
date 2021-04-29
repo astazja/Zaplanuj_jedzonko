@@ -24,16 +24,10 @@
         <div class="border-dashed view-height">
             <div class="container w-25">
                 <form class="padding-small text-center" action="/login" method="post">
-                    <c:if test="${not empty success}">
+                    <c:if test="${not empty registrationSuccess}">
                         <div class="alert alert-success" role="alert">
-                            <c:out value="${success}"></c:out>
+                            <c:out value="${registrationSuccess}"></c:out>
                         </div>
-                    </c:if>
-
-                    <c:if test="${not empty warnings}">
-                        <c:forEach items="${warnings}" var="warning">
-                            <div class="alert alert-danger" role="alert">${warning}</div>
-                        </c:forEach>
                     </c:if>
 
                     <c:if test="${not empty loginSuccess}">
@@ -45,7 +39,7 @@
 
                         <c:if test="${loginSuccess == false}">
                             <div class="alert alert-danger" role="alert">
-                                Błąd!
+                                Błędne dane!
                             </div>
                         </c:if>
                     </c:if>
@@ -58,6 +52,11 @@
                     </div>
                     <button class="btn btn-color rounded-0" type="submit">Zaloguj</button>
                 </form>
+                <c:if test="${not empty warnings}">
+                    <c:forEach items="${warnings}" var="warning">
+                        <div class="alert alert-danger" role="alert">${warning}</div>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
     </div>
