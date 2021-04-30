@@ -41,7 +41,7 @@
         </section>
     </c:when>
     <c:when test="${!isRecipeAdded}">
-<%--        TEN PLAN MOŻNA USUNAĆ, NIE JEST PRZYPISANY DO PLANU--%>
+<%--        TEN PRZEPIS MOŻNA USUNAĆ, NIE JEST PRZYPISANY DO PLANU--%>
         <section class="dashboard-section">
             <div class="container pt-4 pb-4">
                 <div class="border-dashed view-height">
@@ -53,9 +53,7 @@
                         <form class="padding-small text-center" action="/app/recipe/delete" method="post">
                             <input type="hidden" name="id" value="${recipe.id}">
                             <div class="form-group">
-<%--                                <a href="/app/recipe/list">--%>
                                     <button class="btn btn-color rounded-0" type="submit">Ok</button>
-<%--                                </a>--%>
                                 <a href="/app/recipe/list">
                                     <button class="btn btn-color rounded-0" type="button">Anuluj</button>
                                 </a>
