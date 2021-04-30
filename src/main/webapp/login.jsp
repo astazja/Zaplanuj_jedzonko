@@ -31,12 +31,6 @@
                     </c:if>
 
                     <c:if test="${not empty loginSuccess}">
-                        <c:if test="${loginSuccess == true}">
-                            <div class="alert alert-success" role="alert">
-                                Zalogowano!
-                            </div>
-                        </c:if>
-
                         <c:if test="${loginSuccess == false}">
                             <div class="alert alert-danger" role="alert">
                                 Błędne dane!

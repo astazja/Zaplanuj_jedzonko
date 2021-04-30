@@ -51,12 +51,11 @@ public class Login extends HttpServlet {
                     session.setAttribute("userId", admin.getId());
                 }
 
-                req.setAttribute("loginSuccess", true);
             } else {
                 req.setAttribute("loginSuccess", false);
             }
 
-            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/");
         }
 
     }
