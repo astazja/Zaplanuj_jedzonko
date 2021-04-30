@@ -166,13 +166,15 @@ public class PlanDao {
     }
     public Map<String, List<RecipePlanDetails>> readPlanDetails(Integer planId) {
         Map<String , List<RecipePlanDetails>> planDetailsMap = new HashMap<>();
-        List<RecipePlanDetails> recipePlanDetailsList = new ArrayList<>();
+
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(READ_PLAN_DETAILS_QUERY);
             statement.setInt(1, planId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String dayName = resultSet.getString("day_name");
+
+                List<RecipePlanDetails> recipePlanDetailsList = new ArrayList<>();
 
                 RecipePlanDetails recipePlanDetails = new RecipePlanDetails();
                 recipePlanDetails.setDayName(resultSet.getString("day_name"));
