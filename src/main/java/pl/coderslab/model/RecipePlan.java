@@ -17,7 +17,8 @@ public class RecipePlan {
         this.mealName = mealName;
         this.displayOrder = displayOrder;
         this.dayNameId = dayNameId;
-        
+    }
+    
     public RecipePlan (Integer id, Integer recipeId, String mealName, Integer displayOrder, Integer planId) {
         this.id = id;
         this.recipeId = recipeId;
