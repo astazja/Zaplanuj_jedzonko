@@ -175,6 +175,7 @@ public class PlanDao {
                 String dayName = resultSet.getString("day_name");
 
                 RecipePlanDetails recipePlanDetails = new RecipePlanDetails();
+                recipePlanDetails.setDayName(resultSet.getString("day_name"));
                 recipePlanDetails.setMealName(resultSet.getString("meal_name"));
                 recipePlanDetails.setRecipeName(resultSet.getString("recipe_name"));
                 recipePlanDetails.setRecipeDescription(resultSet.getString("recipe_description"));

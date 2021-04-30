@@ -101,10 +101,7 @@
                     </div>
 
                     <table class="table">
-<%--                        <c:set var="dayName" value=""/>--%>
                         <c:forEach var="recipePlanList" items="${recipePlanList}">
-
-<%--                            <c:if test="${dayName != recipePlanList.dayName}">--%>
                             <thead>
                             <tr class="d-flex">
                                 <th class="col-2"><c:out value="${recipePlanList.key}"/>
@@ -113,11 +110,13 @@
                                 <th class="col-2"></th>
                             </tr>
                             </thead>
-<%--                            </c:if>--%>
                             <tbody class="text-color-lighter">
-                            <c:forEach var="day" items="${recipePlanList.value}" >
+
+                            <c:forEach var="day" items="${recipePlanList.value}" varStatus="loop">
+                              <c:if test="${recipePlanList.key == day.dayName}">   <%-- tu by dni się wyswietlały odpowiednio  --%>
+                                    <c:if test="${loop.step == loop.begin}">   <%-- tu nie wiem jaki warunek dać by iterował tylko raz cyferki obok to index iteracji --%>
                             <tr class="d-flex">
-                                    <td class="col-2"><c:out value="${day.mealName}"/></td>
+                                    <td class="col-2"><c:out value="${day.mealName} ${loop.getIndex()}"/></td>
                                     <td class="col-7"><c:out value="${day.recipeName}"/></td>
                                     <td class="col-1 center">
                                         <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
@@ -125,9 +124,11 @@
                                     <td class="col-2 center">
                                         <a href="<c:url value="/app/recipe/details?id=${day.recipeId}"/>" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                     </td>
-
                             </tr>
+                                    </c:if>
+                                </c:if>
                             </c:forEach>
+
                             </tbody>
                         </c:forEach>
                     </table>
