@@ -15,8 +15,8 @@ public class PlanDao {
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * from plan where id = ?;";
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name = ?, description = ?, created = ?, admin_id = ? WHERE id = ?;";
-    private static final String READ_LAST_ADDED_PLAN = "SELECT * FROM plan  WHERE id = (SELECT MAX(id) FROM plan)";
-    private static final String NUMBER_OF_ADDED_PLAN = "SELECT COUNT(*) FROM plan WHERE admin_id = ?;";
+    private static final String READ_LAST_ADDED_PLAN = "SELECT * FROM plan  WHERE id = (SELECT MAX(id) FROM plan);";
+    private static final String NUMBER_OF_ADDED_PLAN = "SELECT COUNT(*) FROM plan;";
 
     public Plan readLastAdded() {
         Plan lastPlan = new Plan();
@@ -141,11 +141,10 @@ public class PlanDao {
 
     }
 
-    public Integer getNumberOfPlan(Integer adminId) {
+    public Integer getNumberOfPlan() {
         try(Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(NUMBER_OF_ADDED_PLAN);
 
-            statement.setInt(1, adminId);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

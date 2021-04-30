@@ -11,12 +11,12 @@ import java.util.List;
 
 public class RecipeDao {
 
-    private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe(name, ingredients, description, created, updated, preparation_time, preparation, admin_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String CREATE_RECIPE_QUERY = "INSERT INTO recipe(name, ingredients, description, created, updated, preparation_time, preparation, admin_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     private static final String READ_RECIPE_QUERY = "SELECT * FROM recipe WHERE id = ?;";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ?, ingredients = ?, description = ?, created = ?, updated = ?, preparation_time = ?, preparation = ?, admin_id = ? WHERE id = ?;";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe WHERE id = ?;";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe;";
-    private static final String NUMBER_OF_ADDED_RECIPE = "SELECT COUNT(*) FROM recipe WHERE admin_id = ?;";
+    private static final String NUMBER_OF_ADDED_RECIPE = "SELECT COUNT(*) FROM recipe;";
 
     public Recipe createRecipe(Recipe recipe) {
         try(Connection connection = DbUtil.getConnection()) {
@@ -116,11 +116,10 @@ public class RecipeDao {
         recipe.setPreparation(resultSet.getString("preparation"));
         recipe.setAdminId(resultSet.getInt("admin_id"));
     }
-    public Integer getNumberOfRecipe(Integer adminId) {
+    public Integer getNumberOfRecipe() {
         try (Connection connection = DbUtil.getConnection()){
             PreparedStatement statement = connection.prepareStatement(NUMBER_OF_ADDED_RECIPE);
 
-            statement.setInt(1, adminId);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

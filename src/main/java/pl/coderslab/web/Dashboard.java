@@ -4,7 +4,6 @@ import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admin;
 import pl.coderslab.model.Plan;
-import pl.coderslab.model.RecipePlanDetails;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,18 +16,16 @@ import java.util.Map;
 public class Dashboard extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        HttpSession sess = request.getSession();
-//        Admin admin = (Admin) sess.getAttribute("admin");
-        Admin admin = new Admin();
-        admin.setId(1);
-        RecipeDao recipeDao = new RecipeDao();
-        PlanDao planDao = new PlanDao();
+        HttpSession sess = request.getSession();
 
-        if (admin == null) {
+        if (sess.getAttribute("userId") == null) {
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
-            request.setAttribute("countRecipes", recipeDao.getNumberOfRecipe(admin.getId()));
-            request.setAttribute("countPlans", planDao.getNumberOfPlan(admin.getId()));
+            RecipeDao recipeDao = new RecipeDao();
+            PlanDao planDao = new PlanDao();
+
+            request.setAttribute("countRecipes", recipeDao.getNumberOfRecipe());
+            request.setAttribute("countPlans", planDao.getNumberOfPlan());
             request.setAttribute("lastPlan", planDao.readLastAdded());
 
             getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
