@@ -68,58 +68,42 @@
                 <h2 class="dashboard-content-title">
                     <span>Ostatnio dodany plan:</span> ${lastPlan.name}
                 </h2>
+
                 <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Poniedziałek</th>
-                        <th class="col-8"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="d-flex">
-                        <td class="col-2">śniadanie</td>
-                        <td class="col-8">płatki owsiane z jagodami i komosą ryżową</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">śniadanie</td>
-                        <td class="col-8">kanapka z pastą rybną</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">obiad</td>
-                        <td class="col-8">zupa pomidorowa</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    </tbody>
+                    <c:if test="${empty recipePlanList}">
+                        <div>Brak dodanych przepisów do tego planu</div>
+                    </c:if>
+
+                    <c:forEach var="recipePlanList" items="${recipePlanList}">
+                        <thead>
+                        <tr class="d-flex">
+                            <th class="col-2"><c:out value="${recipePlanList.key}"/>
+                            <th class="col-7"></th>
+                            <th class="col-1"></th>
+                            <th class="col-2"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-color-lighter">
+
+                        <c:forEach var="day" items="${recipePlanList.value}">
+                            <c:if test="${recipePlanList.key == day.dayName}">
+                                <tr class="d-flex">
+                                    <td class="col-2"><c:out value="${day.mealName}"/></td>
+                                    <td class="col-7"><c:out value="${day.recipeName}"/></td>
+                                    <td class="col-1 center">
+                                        <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                    </td>
+                                    <td class="col-2 center">
+                                        <a href="<c:url value="/app/recipe/details?id=${day.recipeId}"/>" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                    </td>
+                                </tr>
+                            </c:if>
+                        </c:forEach>
+
+                        </tbody>
+                    </c:forEach>
                 </table>
-                <table class="table">
-                    <thead>
-                    <tr class="d-flex">
-                        <th class="col-2">Wtorek</th>
-                        <th class="col-8"></th>
-                        <th class="col-2"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="d-flex">
-                        <td class="col-2">śniadanie</td>
-                        <td class="col-8">płatki owsiane z jagodami i komosą ryżową</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">drugie śniadanie</td>
-                        <td class="col-8">pączki</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    <tr class="d-flex">
-                        <td class="col-2">obiad</td>
-                        <td class="col-8">schabowy w panierce</td>
-                        <td class="col-2"><button type="button" class="btn btn-primary rounded-0">Szczegóły</button></td>
-                    </tr>
-                    </tbody>
-                </table>
+
             </div>
         </div>
 </div>

@@ -4,6 +4,7 @@ import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.model.Admin;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.RecipePlanDetails;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -24,9 +25,15 @@ public class Dashboard extends HttpServlet {
             RecipeDao recipeDao = new RecipeDao();
             PlanDao planDao = new PlanDao();
 
+            Plan plan = planDao.readLastAdded();
+            Map<String , List<RecipePlanDetails>> recipePlanDetailsList = planDao.readPlanDetails(plan.getId());
+
+//            request.setAttribute("plan", plan);
+            request.setAttribute("recipePlanList", recipePlanDetailsList);
+
             request.setAttribute("countRecipes", recipeDao.getNumberOfRecipe());
             request.setAttribute("countPlans", planDao.getNumberOfPlan());
-            request.setAttribute("lastPlan", planDao.readLastAdded());
+            request.setAttribute("lastPlan", plan);
 
             getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
         }
