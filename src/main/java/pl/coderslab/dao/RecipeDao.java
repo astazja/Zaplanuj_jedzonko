@@ -85,7 +85,7 @@ public class RecipeDao {
             if(!deleted) {
                 throw new NotFoundException("Recipe not found");
             }
-        }catch (SQLException e) {
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }
