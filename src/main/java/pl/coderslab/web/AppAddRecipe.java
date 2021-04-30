@@ -21,26 +21,35 @@ public class AppAddRecipe extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
-        String preparationTime = request.getParameter("time");
-        String preparation = request.getParameter("preparation");
-        String ingredients = request.getParameter("ingredients");
-        List<String> ingredientsList = Arrays.asList(ingredients.split(", "));
+        HttpSession session = request.getSession();
 
-        Recipe recipe = new Recipe();
-        recipe.setName(name);
-        recipe.setIngredients(ingredientsList);
-        recipe.setDescription(description);
-        recipe.setCreated(LocalDateTime.now());
-        recipe.setUpdated(LocalDateTime.now());
-        recipe.setPreparationTime(Integer.parseInt(preparationTime));
-        recipe.setPreparation(preparation);
-        recipe.setAdminId(1); //do zmiany czytanie z sesji? na razie na stałe do id=1
+        if (session.getAttribute("userId") != null) {
+            String name = request.getParameter("name");
+            String description = request.getParameter("description");
+            String preparationTime = request.getParameter("time");
+            String preparation = request.getParameter("preparation");
+            String ingredients = request.getParameter("ingredients");
+            List<String> ingredientsList = Arrays.asList(ingredients.split(", "));
 
-        RecipeDao recipeDao = new RecipeDao();
-        recipeDao.createRecipe(recipe);
+            if(name.isEmpty() || description.isEmpty() || preparationTime.isEmpty() || preparation.isEmpty() || ingredients.isEmpty()) {
+                request.setAttribute("info", "Nie wypełniono wszystkich pól.");
+                getServletContext().getRequestDispatcher("/app-add-recipe.jsp").forward(request, response);
+            }else {
+                Recipe recipe = new Recipe();
+                recipe.setName(name);
+                recipe.setIngredients(ingredientsList);
+                recipe.setDescription(description);
+                recipe.setCreated(LocalDateTime.now());
+                recipe.setUpdated(LocalDateTime.now());
+                recipe.setPreparationTime(Integer.parseInt(preparationTime));
+                recipe.setPreparation(preparation);
+                recipe.setAdminId((int) session.getAttribute("userId"));
 
-        response.sendRedirect(request.getContextPath() +"/app/recipe/list");
+                RecipeDao recipeDao = new RecipeDao();
+                recipeDao.createRecipe(recipe);
+
+                response.sendRedirect(request.getContextPath() + "/app/recipe/list");
+            }
+        }
     }
 }

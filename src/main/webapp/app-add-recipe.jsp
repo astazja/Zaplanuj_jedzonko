@@ -124,6 +124,11 @@
                         </div>
                     </div>
                 </form>
+                <c:if test="${not empty info}">
+                    <c:forEach items="${info}" var="warning">
+                        <div class="alert alert-info" role="alert">${info}</div>
+                    </c:forEach>
+                </c:if>
             </div>
         </div>
     </div>

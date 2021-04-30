@@ -85,17 +85,17 @@
                 <th scope="row" class="col-2">Nazwa Przepisu</th>
                 <input type="hidden" name="id" value="${recipe.id}">
                 <td class="col-7">
-                  <input class="w-100 p-1" value="z ziemniakami i brukselką">
+                  <input name="name" class="w-100 p-1" value="${recipe.name}">
                 </td>
               </tr>
               <tr class="d-flex">
                 <th scope="row" class="col-2">Opis przepisu</th>
-                <td class="col-7"> <textarea class="w-100 p-1" rows="5">Mamusina najlepsza zapiekanka pod słońcem. Można ją podać jako główne danie albo jako kolację. W zapiekance możesz użyć również kiełbasy paprykowej sprawi ona, że zapiekanka będzie ostrzejsza w smaku. Zgodnie z zalecanimi Makłowicza, podawać z dobrze dobranym winkiem ;)</textarea></td>
+                <td class="col-7"> <textarea name="description" class="w-100 p-1" rows="5">${recipe.description}</textarea></td>
               </tr>
               <tr class="d-flex">
                 <th scope="row" class="col-2">Przygotowanie (minuty)</th>
                 <td class="col-3">
-                  <input class="p-1" type="number" value="45">
+                  <input name="time" class="p-1" type="number" value="${recipe.preparationTime}">
                 </td>
               </tr>
               </tbody>
@@ -108,27 +108,21 @@
             </div>
             <div class="row d-flex">
               <div class="col-5 p-4">
-                <textarea class="w-100 p-1" rows="10">Po tym czasie ziemniaki zalej śmietaną wymieszaną z Knorr Naturalnie smaczne, dodaj liście brukselki i dokładnie wymieszaj.</textarea>
+                <textarea name="preparation" class="w-100 p-1" rows="10">${recipe.preparation}</textarea>
               </div>
               <div class="col-2"></div>
 
               <div class="col-5 p-4">
-                                    <textarea class="w-100 p-1" rows="10">
-    brukselka 300g
-    ziemniaki 500g
-    Fix Naturalnie makaronowa z szynką Knorr 1 szt.
-    średnia cebula 1szt.
-    ząbek czosnku 1szt.
-    kiełbasa np. śląska 500g
-    śmietana 18% 200 ml
-    Rama Smaż jak szef kuchni, wariant klasyczny 4 łyżki
-    gałązka tymianku 1 szt.
-                                    </textarea>
+                <textarea name="ingredients"  class="w-100 p-1" rows="10">${ingredients}</textarea>
               </div>
             </div>
           </form>
+          <c:if test="${not empty info}">
+            <c:forEach items="${info}" var="warning">
+              <div class="alert alert-info" role="alert">${info}</div>
+            </c:forEach>
+          </c:if>
         </div>
-
       </div>
     </div>
   </div>
