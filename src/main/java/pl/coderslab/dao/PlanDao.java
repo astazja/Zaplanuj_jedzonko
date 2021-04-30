@@ -1,13 +1,15 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
-import pl.coderslab.model.Admin;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.RecipePlanDetails;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlanDao {
     private static final String CREATE_PLAN_QUERY = "INSERT INTO plan(name,description,created,admin_id) VALUES (?,?,?,?);";
@@ -17,6 +19,12 @@ public class PlanDao {
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name = ?, description = ?, created = ?, admin_id = ? WHERE id = ?;";
     private static final String READ_LAST_ADDED_PLAN = "SELECT * FROM plan  WHERE id = (SELECT MAX(id) FROM plan)";
     private static final String NUMBER_OF_ADDED_PLAN = "SELECT COUNT(*) FROM plan WHERE admin_id = ?;";
+    private static final String READ_PLAN_DETAILS_QUERY = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, recipe.id AS recipe_id\n" +
+            "FROM `recipe_plan`\n" +
+            "         JOIN day_name on day_name.id=day_name_id\n" +
+            "         JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
+            "ORDER by day_name.display_order, recipe_plan.display_order;";
+
 
     public Plan readLastAdded() {
         Plan lastPlan = new Plan();
@@ -155,5 +163,35 @@ public class PlanDao {
             e.printStackTrace();
         }
         return null;
+    }
+    public Map<String, List<RecipePlanDetails>> readPlanDetails(Integer planId) {
+        Map<String , List<RecipePlanDetails>> planDetailsMap = new HashMap<>();
+
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(READ_PLAN_DETAILS_QUERY);
+            statement.setInt(1, planId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                String dayName = resultSet.getString("day_name");
+
+                List<RecipePlanDetails> recipePlanDetailsList = new ArrayList<>();
+
+                RecipePlanDetails recipePlanDetails = new RecipePlanDetails();
+                recipePlanDetails.setDayName(resultSet.getString("day_name"));
+                recipePlanDetails.setMealName(resultSet.getString("meal_name"));
+                recipePlanDetails.setRecipeName(resultSet.getString("recipe_name"));
+                recipePlanDetails.setRecipeDescription(resultSet.getString("recipe_description"));
+                recipePlanDetails.setRecipeId(resultSet.getInt("recipe_id"));
+                recipePlanDetailsList.add(recipePlanDetails);
+                if(planDetailsMap.get(dayName) == null) {
+                    planDetailsMap.put(dayName, recipePlanDetailsList);
+                }else {
+                    planDetailsMap.get(dayName).addAll(recipePlanDetailsList);
+                }
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planDetailsMap;
     }
 }
