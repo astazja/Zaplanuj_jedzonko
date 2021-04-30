@@ -1,14 +1,23 @@
 package pl.coderslab.model;
 
-public class RecipePlan {
+
+public class RecipePlan { 
     private Integer id;
     private Integer recipeId;
     private String mealName;
     private Integer displayOrder;
-    private  Integer planId;
+    private Integer dayNameId;
+    private Integer planId;
 
     public RecipePlan() {
     }
+
+    public RecipePlan(Integer recipeId, String mealName, Integer displayOrder, Integer dayNameId, Integer planId) {
+        this.recipeId = recipeId;
+        this.mealName = mealName;
+        this.displayOrder = displayOrder;
+        this.dayNameId = dayNameId;
+        
     public RecipePlan (Integer id, Integer recipeId, String mealName, Integer displayOrder, Integer planId) {
         this.id = id;
         this.recipeId = recipeId;
@@ -49,6 +58,16 @@ public class RecipePlan {
         this.displayOrder = displayOrder;
     }
 
+
+    public Integer getDayNameId() {
+        return dayNameId;
+    }
+
+    public void setDayNameId(Integer dayNameId) {
+        this.dayNameId = dayNameId;
+    }
+
+
     public Integer getPlanId() {
         return planId;
     }
@@ -56,4 +75,17 @@ public class RecipePlan {
     public void setPlanId(Integer planId) {
         this.planId = planId;
     }
+
+    @Override
+    public String toString() {
+        return "RecipePlan{" +
+                "id=" + id +
+                ", recipeId=" + recipeId +
+                ", mealName='" + mealName + '\'' +
+                ", displayOrder=" + displayOrder +
+                ", dayNameId=" + dayNameId +
+                ", planId=" + planId +
+                '}';
+    }
+
 }
