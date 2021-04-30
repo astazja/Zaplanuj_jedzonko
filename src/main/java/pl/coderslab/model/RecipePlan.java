@@ -1,16 +1,16 @@
 package pl.coderslab.model;
 
 public class RecipePlan { private int id;
-    private int recipeId;
+    private Integer recipeId;
     private String mealName;
-    private int displayOrder;
-    private int dayNameId;
-    private int planId;
+    private Integer displayOrder;
+    private Integer dayNameId;
+    private Integer planId;
 
     public RecipePlan() {
     }
 
-    public RecipePlan(int recipeId, String mealName, int displayOrder, int dayNameId, int planId) {
+    public RecipePlan(Integer recipeId, String mealName, Integer displayOrder, Integer dayNameId, Integer planId) {
         this.recipeId = recipeId;
         this.mealName = mealName;
         this.displayOrder = displayOrder;
@@ -18,19 +18,19 @@ public class RecipePlan { private int id;
         this.planId = planId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getRecipeId() {
+    public Integer getRecipeId() {
         return recipeId;
     }
 
-    public void setRecipeId(int recipeId) {
+    public void setRecipeId(Integer recipeId) {
         this.recipeId = recipeId;
     }
 
@@ -42,11 +42,11 @@ public class RecipePlan { private int id;
         this.mealName = mealName;
     }
 
-    public int getDisplayOrder() {
+    public Integer getDisplayOrder() {
         return displayOrder;
     }
 
-    public void setDisplayOrder(int displayOrder) {
+    public void setDisplayOrder(Integer displayOrder) {
         this.displayOrder = displayOrder;
     }
 
@@ -54,15 +54,15 @@ public class RecipePlan { private int id;
         return dayNameId;
     }
 
-    public void setDayNameId(int dayNameId) {
+    public void setDayNameId(Integer dayNameId) {
         this.dayNameId = dayNameId;
     }
 
-    public int getPlanId() {
+    public Integer getPlanId() {
         return planId;
     }
 
-    public void setPlanId(int planId) {
+    public void setPlanId(Integer planId) {
         this.planId = planId;
     }
 
