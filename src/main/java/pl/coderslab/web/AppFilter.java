@@ -24,6 +24,8 @@ public class AppFilter implements Filter {
         HttpSession session = req.getSession();
         if (session.getAttribute("userId") == null){
             resp.sendRedirect(req.getContextPath() + "/");
+        } else {
+            chain.doFilter(request, response);
         }
 
     }
