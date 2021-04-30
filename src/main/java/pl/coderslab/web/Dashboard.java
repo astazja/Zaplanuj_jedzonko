@@ -31,13 +31,6 @@ public class Dashboard extends HttpServlet {
             request.setAttribute("countPlans", planDao.getNumberOfPlan(admin.getId()));
             request.setAttribute("lastPlan", planDao.readLastAdded());
 
-            Plan plan = planDao.read(admin.getId());
-            Map<String, List<RecipePlanDetails>> recipePlanDetailsList = planDao.readPlanDetails(admin.getId());
-
-
-            request.setAttribute("plan", plan);
-            request.setAttribute("recipePlanList", recipePlanDetailsList);
-
             getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
         }
     }
