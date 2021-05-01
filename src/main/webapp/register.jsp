@@ -22,6 +22,11 @@
 <section class="dashboard-section">
     <div class="container pt-4 pb-4">
         <div class="border-dashed view-height">
+            <c:if test="${error}">
+                <div style="margin: 20px" class="alert alert-danger" role="alert">
+                    <p>Użytkownik z podanym adresem email już istnieje.</p>
+                </div>
+            </c:if>
             <div class="container w-25">
                 <!-- fix action, method -->
                 <!-- add name attribute for all inputs -->

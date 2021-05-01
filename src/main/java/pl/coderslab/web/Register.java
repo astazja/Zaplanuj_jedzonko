@@ -28,44 +28,57 @@ public class Register extends HttpServlet {
         String password = req.getParameter("password");
         String repassword = req.getParameter("repassword");
 
-        if (name.length() < 1){
-            warnings.add("Imie nie zostało podane!");
+        AdminDao adminDao1 = new AdminDao();
+        List<Admin> admins = adminDao1.findAll();
+        boolean thisEmailIsInUse = false;
+        for (Admin admin : admins) {
+            if(admin.getEmail().equalsIgnoreCase(email)) {
+                thisEmailIsInUse = true;
+                req.setAttribute("error", true);
+                req.getRequestDispatcher("/register.jsp").forward(req, resp);
+                break;
+            }
         }
+        if(thisEmailIsInUse == false) {
+            if (name.length() < 1){
+                warnings.add("Imie nie zostało podane!");
+            }
 
-        if (surname.length() < 1){
-            warnings.add("Nazwisko nie zostało podane!");
-        }
+            if (surname.length() < 1){
+                warnings.add("Nazwisko nie zostało podane!");
+            }
 
-        if (email.length() < 1){
-            warnings.add("Email nie został podany!");
-        }
+            if (email.length() < 1){
+                warnings.add("Email nie został podany!");
+            }
 
-        if (password.length() < 1){
-            warnings.add("Hasło nie zostało podane!");
-        }
+            if (password.length() < 1){
+                warnings.add("Hasło nie zostało podane!");
+            }
 
-        if (!password.equals(repassword)){
-            warnings.add("Podane hasła się nie zgadzają!");
-        }
+            if (!password.equals(repassword)){
+                warnings.add("Podane hasła się nie zgadzają!");
+            }
 
-        if (warnings.size() > 0) {
-            req.setAttribute("warnings", warnings);
+            if (warnings.size() > 0) {
+                req.setAttribute("warnings", warnings);
 
-            getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
-        } else {
-            req.setAttribute("registrationSuccess", "Pomyślnie zarejestrowano, teraz się zaloguj.");
+                getServletContext().getRequestDispatcher("/register.jsp").forward(req, resp);
+            } else {
+                req.setAttribute("registrationSuccess", "Pomyślnie zarejestrowano, teraz się zaloguj.");
 
-            AdminDao adminDao = new AdminDao();
-            Admin admin = new Admin();
-            admin.setFirstName(name);
-            admin.setLastName(surname);
-            admin.setEmail(email);
-            admin.setPassword(password);
-            admin.setSuperadmin((byte) 1);
-            admin.setEnable((byte) 1);
-            adminDao.create(admin);
+                AdminDao adminDao = new AdminDao();
+                Admin admin = new Admin();
+                admin.setFirstName(name);
+                admin.setLastName(surname);
+                admin.setEmail(email);
+                admin.setPassword(password);
+                admin.setSuperadmin((byte) 1);
+                admin.setEnable((byte) 1);
+                adminDao.create(admin);
 
-            getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+                getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
+            }
         }
 
     }
