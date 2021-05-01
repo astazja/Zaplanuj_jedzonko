@@ -90,9 +90,9 @@
                                 <tr class="d-flex">
                                     <td class="col-2"><c:out value="${day.mealName}"/></td>
                                     <td class="col-7"><c:out value="${day.recipeName}"/></td>
-                                    <td class="col-1 center">
-                                        <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                    </td>
+<%--                                    <td class="col-1 center">--%>
+<%--                                        <a href="/app/recipe/plan/delete?recipeId=${day.recipeId}&planId=${plan.id}" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>--%>
+<%--                                    </td>--%>
                                     <td class="col-2 center">
                                         <a href="<c:url value="/app/recipe/details?id=${day.recipeId}"/>" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                     </td>
