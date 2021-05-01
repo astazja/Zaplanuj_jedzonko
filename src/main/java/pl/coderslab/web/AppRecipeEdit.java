@@ -8,22 +8,33 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@WebServlet(name = "AppAddRecipe", value = "/app/recipe/add")
-public class AppAddRecipe extends HttpServlet {
+@WebServlet(name = "AppRecipeEdit", value = "/app/recipe/edit")
+public class AppRecipeEdit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/app-add-recipe.jsp").forward(request,response);
+        RecipeDao recipeDao = new RecipeDao();
+        Recipe recipe = recipeDao.readRecipe(Integer.parseInt(request.getParameter("id")));
+        List<String> ingredients = recipe.getIngredients();
+        StringBuilder onLineIngredients = new StringBuilder();
+        for (String ingredient : ingredients) {
+            if(onLineIngredients.length() > 0) {
+                onLineIngredients.append(", ");
+            }
+            onLineIngredients.append(ingredient);
+        }
+        request.setAttribute("recipe", recipe);
+        request.setAttribute("ingredients", onLineIngredients);
+        getServletContext().getRequestDispatcher("/app-recipe-edit.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-        if (session.getAttribute("userId") != null) {
+        if(session.getAttribute("userId") != null) {
+            Integer id = Integer.parseInt(request.getParameter("id"));
             String name = request.getParameter("name");
             String description = request.getParameter("description");
             String preparationTime = request.getParameter("time");
@@ -33,21 +44,19 @@ public class AppAddRecipe extends HttpServlet {
 
             if(name.isEmpty() || description.isEmpty() || preparationTime.isEmpty() || preparation.isEmpty() || ingredients.isEmpty()) {
                 request.setAttribute("info", "Nie wypełniono wszystkich pól.");
-                getServletContext().getRequestDispatcher("/app-add-recipe.jsp").forward(request, response);
+                response.sendRedirect("/app/recipe/edit?id=" + id);
             }else {
-                Recipe recipe = new Recipe();
+                RecipeDao recipeDao = new RecipeDao();
+                Recipe recipe = recipeDao.readRecipe(id);
                 recipe.setName(name);
                 recipe.setIngredients(ingredientsList);
                 recipe.setDescription(description);
-                recipe.setCreated(LocalDateTime.now());
                 recipe.setUpdated(LocalDateTime.now());
                 recipe.setPreparationTime(Integer.parseInt(preparationTime));
                 recipe.setPreparation(preparation);
                 recipe.setAdminId((int) session.getAttribute("userId"));
 
-                RecipeDao recipeDao = new RecipeDao();
-                recipeDao.createRecipe(recipe);
-
+                recipeDao.updateRecipe(recipe);
                 response.sendRedirect(request.getContextPath() + "/app/recipe/list");
             }
         }
