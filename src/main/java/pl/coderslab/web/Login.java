@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
                     session.setAttribute("userId", admin.getId());
                 }
 
-                resp.sendRedirect(req.getContextPath() + "/");
+                resp.sendRedirect(req.getContextPath() + "/dashboard");
             } else {
                 req.setAttribute("loginSuccess", false);
                 getServletContext().getRequestDispatcher("/login.jsp").forward(req, resp);
