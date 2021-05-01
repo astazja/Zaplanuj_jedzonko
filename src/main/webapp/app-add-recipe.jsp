@@ -18,63 +18,12 @@
 </head>
 
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/" class="navbar-brand main-logo main-logo-smaller">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">Imię</h4>
-            <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
-        </div>
-    </nav>
-</header>
-
+<c:import url="app-header.jsp"></c:import>
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
-        <ul class="nav flex-column long-bg">
-            <li class="nav-item">
-                <a class="nav-link" href="/dashboard.html">
-                    <span>Pulpit</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-recipes.html">
-                    <span>Przepisy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-schedules.html">
-                    <span>Plany</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-edit-user-data.html">
-                    <span>Edytuj dane</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="/app-edit-password.html">
-                    <span>Zmień hasło</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/super-admin-users.html">
-                    <span>Użytkownicy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-
+        <c:import url="app-side-menu.jsp"></c:import>
         <div class="m-4 p-3 width-medium text-color-darker">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <!-- fix action, method -->
-                <!-- add name attribute for all inputs -->
                 <form action="/app/recipe/add" method="post">
                     <div class="mt-4 ml-4 mr-4">
                         <div class="row border-bottom border-3">
@@ -105,19 +54,20 @@
                             </tr>
                             </tbody>
                         </table>
-
                         <div class="row d-flex">
-                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób
-                                przygotowania</h3></div>
+                            <div class="col-5 border-bottom border-3">
+                                <h3 class="text-uppercase">Sposób przygotowania</h3>
+                            </div>
                             <div class="col-2"></div>
-                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki</h3></div>
+                            <div class="col-5 border-bottom border-3">
+                                <h3 class="text-uppercase">Składniki</h3>
+                            </div>
                         </div>
                         <div class="row d-flex">
                             <div class="col-5 p-4">
                                 <textarea name="preparation" class="w-100 p-1" rows="10"></textarea>
                             </div>
                             <div class="col-2"></div>
-
                             <div class="col-5 p-4">
                                 <textarea name="ingredients" class="w-100 p-1" rows="10"></textarea>
                             </div>
