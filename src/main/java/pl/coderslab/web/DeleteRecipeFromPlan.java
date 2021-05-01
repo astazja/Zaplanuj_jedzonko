@@ -13,17 +13,24 @@ import java.io.IOException;
 public class DeleteRecipeFromPlan extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RecipePlanDao recipePlanDao = new RecipePlanDao();
-        RecipePlan recipePlan = recipePlanDao.readRecipePlan(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("recipePlan", recipePlan);
-        request.getRequestDispatcher("/deleteRecipeFromPlan.jsp").forward(request,response);
+
+        request.setAttribute("planId",request.getParameter("planId"));
+        request.setAttribute("recipeId",request.getParameter("recipeId"));
+
+        getServletContext().getRequestDispatcher("/deleteRecipeFromPlan.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    RecipePlanDao recipePlanDao = new RecipePlanDao();
-    recipePlanDao.deleteRecipePlan(Integer.parseInt(request.getParameter("id")));
-    response.sendRedirect(request.getContextPath()+"/app/plan/details");
+        String delete = request.getParameter("delete");
+        int recipeId = Integer.parseInt(request.getParameter("recipeId"));
+        int planId = Integer.parseInt(request.getParameter("planId"));
+        if (delete.equals("ok")) {
+
+            RecipePlanDao recipePlanDao = new RecipePlanDao();
+            recipePlanDao.deleteRecipePlan(planId, recipeId);
+        }
+        response.sendRedirect("/app/plan/details?id="+planId);
 
     }
 }
