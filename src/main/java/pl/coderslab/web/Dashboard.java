@@ -19,21 +19,23 @@ public class Dashboard extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession sess = request.getSession();
 
-        if (sess.getAttribute("userId") == null) {
+        if (sess.getAttribute("userData") == null) {
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         } else {
             RecipeDao recipeDao = new RecipeDao();
             PlanDao planDao = new PlanDao();
 
+            Admin admin = (Admin) sess.getAttribute("userData");
+
             Plan plan = planDao.readLastAdded();
             Map<String , List<RecipePlanDetails>> recipePlanDetailsList = planDao.readPlanDetails(plan.getId());
 
-//            request.setAttribute("plan", plan);
             request.setAttribute("recipePlanList", recipePlanDetailsList);
 
             request.setAttribute("countRecipes", recipeDao.getNumberOfRecipe());
             request.setAttribute("countPlans", planDao.getNumberOfPlan());
             request.setAttribute("lastPlan", plan);
+            request.setAttribute("firstName", admin.getFirstName());
 
             getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
         }
