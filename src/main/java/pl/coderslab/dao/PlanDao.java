@@ -17,14 +17,13 @@ public class PlanDao {
     private static final String FIND_ALL_PLANS_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * from plan where id = ?;";
     private static final String UPDATE_PLAN_QUERY = "UPDATE plan SET name = ?, description = ?, created = ?, admin_id = ? WHERE id = ?;";
-    private static final String READ_LAST_ADDED_PLAN = "SELECT * FROM plan  WHERE id = (SELECT MAX(id) FROM plan)";
-    private static final String NUMBER_OF_ADDED_PLAN = "SELECT COUNT(*) FROM plan WHERE admin_id = ?;";
+    private static final String READ_LAST_ADDED_PLAN = "SELECT * FROM plan  WHERE id = (SELECT MAX(id) FROM plan);";
+    private static final String NUMBER_OF_ADDED_PLAN = "SELECT COUNT(*) FROM plan;";
     private static final String READ_PLAN_DETAILS_QUERY = "SELECT day_name.name as day_name, meal_name, recipe.name as recipe_name, recipe.description as recipe_description, recipe.id AS recipe_id\n" +
             "FROM `recipe_plan`\n" +
             "         JOIN day_name on day_name.id=day_name_id\n" +
             "         JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
             "ORDER by day_name.display_order, recipe_plan.display_order;";
-
 
     public Plan readLastAdded() {
         Plan lastPlan = new Plan();
@@ -149,11 +148,10 @@ public class PlanDao {
 
     }
 
-    public Integer getNumberOfPlan(Integer adminId) {
+    public Integer getNumberOfPlan() {
         try(Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(NUMBER_OF_ADDED_PLAN);
 
-            statement.setInt(1, adminId);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {

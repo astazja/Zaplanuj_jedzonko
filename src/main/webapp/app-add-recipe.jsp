@@ -22,6 +22,7 @@
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
         <c:import url="app-side-menu.jsp"></c:import>
+     
         <div class="m-4 p-3 width-medium text-color-darker">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <form action="/app/recipe/add" method="post">
