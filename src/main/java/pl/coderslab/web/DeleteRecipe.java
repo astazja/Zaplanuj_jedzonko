@@ -2,6 +2,7 @@ package pl.coderslab.web;
 
 import pl.coderslab.dao.RecipeDao;
 import pl.coderslab.dao.RecipePlanDao;
+import pl.coderslab.model.Admin;
 import pl.coderslab.model.Recipe;
 
 import javax.servlet.*;
@@ -13,6 +14,10 @@ import java.io.IOException;
 public class DeleteRecipe extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Admin admin = (Admin) session.getAttribute("userData");
+        request.setAttribute("firstName", admin.getFirstName());
+
         Integer id = Integer.parseInt(request.getParameter("id"));
         RecipeDao recipeDao = new RecipeDao();
         RecipePlanDao recipePlanDao = new RecipePlanDao();

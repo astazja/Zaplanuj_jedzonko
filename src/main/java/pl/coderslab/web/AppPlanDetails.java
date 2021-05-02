@@ -3,10 +3,7 @@ package pl.coderslab.web;
 import pl.coderslab.dao.DayNameDao;
 import pl.coderslab.dao.PlanDao;
 import pl.coderslab.dao.RecipeDao;
-import pl.coderslab.model.DayName;
-import pl.coderslab.model.Plan;
-import pl.coderslab.model.Recipe;
-import pl.coderslab.model.RecipePlanDetails;
+import pl.coderslab.model.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,6 +17,10 @@ import java.util.Map;
 public class AppPlanDetails extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Admin admin = (Admin) session.getAttribute("userData");
+        request.setAttribute("firstName", admin.getFirstName());
+
         int id = Integer.parseInt(request.getParameter("id"));
         PlanDao planDao = new PlanDao();
 
