@@ -16,28 +16,19 @@
 </head>
 
 <body>
-<header class="page-header">
-  <nav class="navbar navbar-expand-lg justify-content-between">
-    <a href="/" class="navbar-brand main-logo main-logo-smaller">
-      Zaplanuj <span>Jedzonko</span>
-    </a>
-    <div class="d-flex justify-content-around">
-      <h4 class="text-light mr-3">Imię</h4>
-      <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
-    </div>
-  </nav>
-</header>
-
-<c:import url="side-bar.jsp"></c:import>
-
+<c:import url="app-header.jsp"></c:import>
+<section class="dashboard-section">
+  <div class="row dashboard-nowrap">
+    <c:import url="app-side-menu.jsp"></c:import>
     <div class="m-4 p-3 width-medium text-color-darker">
       <div class="dashboard-content border-dashed p-3 m-4 view-height">
         <div class="mt-4 ml-4 mr-4">
           <div class="row border-bottom border-3">
             <div class="col"><h3 class="color-header text-uppercase">Szczegóły przepisu</h3></div>
-            <div class="col d-flex justify-content-end mb-2"><a href="/app-recipes.html" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a></div>
+            <div class="col d-flex justify-content-end mb-2">
+              <a href="<c:url value="/app/recipe/list"/>" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
+            </div>
           </div>
-
           <table class="table borderless">
             <tbody>
             <tr class="d-flex">
@@ -54,11 +45,14 @@
             </tr>
             </tbody>
           </table>
-
           <div class="row d-flex">
-            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób przygotowania</h3></div>
+            <div class="col-5 border-bottom border-3">
+              <h3 class="text-uppercase">Sposób przygotowania</h3>
+            </div>
             <div class="col-2"></div>
-            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki</h3></div>
+            <div class="col-5 border-bottom border-3">
+              <h3 class="text-uppercase">Składniki</h3>
+            </div>
           </div>
           <div class="row d-flex">
             <div class="col-5 p-4">
@@ -76,7 +70,6 @@
     </div>
   </div>
 </section>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

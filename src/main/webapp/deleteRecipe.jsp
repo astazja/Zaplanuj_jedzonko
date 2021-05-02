@@ -32,7 +32,7 @@
                         </div>
                         <div class="form-group">
                             <a href="/app/recipe/list">
-                                <button class="btn btn-color rounded-0" type="button">Powrót do listy planów</button>
+                                <button class="btn btn-color rounded-0" type="button">Powrót do listy przepisów</button>
                             </a>
                         </div>
                     </div>
@@ -65,7 +65,6 @@
         </section>
     </c:when>
 </c:choose>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

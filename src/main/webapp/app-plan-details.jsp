@@ -16,59 +16,10 @@
 </head>
 
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/" class="navbar-brand main-logo main-logo-smaller">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">Imię</h4>
-            <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
-        </div>
-    </nav>
-</header>
-
+<c:import url="app-header.jsp"></c:import>
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
-        <ul class="nav flex-column long-bg">
-            <li class="nav-item">
-                <a class="nav-link" href="/dashboard.html">
-                    <span>Pulpit</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-recipes.html">
-                    <span>Przepisy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-schedules.html">
-                    <span>Plany</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-edit-user-data.html">
-                    <span>Edytuj dane</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="/app-edit-password.html">
-                    <span>Zmień hasło</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/super-admin-users.html">
-                    <span>Użytkownicy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
-
+        <c:import url="app-side-menu.jsp"></c:import>
         <div class="m-4 p-3 width-medium ">
             <div class="dashboard-content border-dashed p-3 m-4">
                 <div class="row border-bottom border-3 p-1 m-1">
@@ -76,24 +27,19 @@
                         <h3 class="color-header text-uppercase">SZCZEGÓŁY PLANU</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <a href="#" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
+                        <a href="<c:url value="/app/plan/list"/>" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
                     </div>
                 </div>
-
                 <div class="schedules-content">
                     <div class="schedules-content-header">
                         <div class="form-group row">
-                                <span class="col-sm-2 label-size col-form-label">
-                                    Nazwa planu
-                                </span>
+                                <span class="col-sm-2 label-size col-form-label">Nazwa planu</span>
                             <div class="col-sm-10">
                                 <p class="schedules-text"><c:out value="${plan.name}"/></p>
                             </div>
                         </div>
                         <div class="form-group row">
-                                <span class="col-sm-2 label-size col-form-label">
-                                    Opis planu
-                                </span>
+                                <span class="col-sm-2 label-size col-form-label">Opis planu</span>
                             <div class="col-sm-10">
                                 <p class="schedules-text"><c:out value="${plan.description}"/></p>
                             </div>
@@ -111,7 +57,6 @@
                             </tr>
                             </thead>
                             <tbody class="text-color-lighter">
-
                             <c:forEach var="day" items="${recipePlanList.value}">
                               <c:if test="${recipePlanList.key == day.dayName}">
                             <tr class="d-flex">
@@ -126,11 +71,9 @@
                             </tr>
                               </c:if>
                             </c:forEach>
-
                             </tbody>
                         </c:forEach>
                     </table>
-
                 </div>
             </div>
         </div>
