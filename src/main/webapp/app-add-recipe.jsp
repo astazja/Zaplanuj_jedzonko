@@ -76,8 +76,8 @@
                     </div>
                 </form>
                 <c:if test="${not empty info}">
-                    <c:forEach items="${info}" var="warning">
-                        <div class="alert alert-info" role="alert">${info}</div>
+                    <c:forEach items="${info}" var="inf">
+                        <div class="alert alert-info" role="alert">${inf}</div>
                     </c:forEach>
                 </c:if>
             </div>

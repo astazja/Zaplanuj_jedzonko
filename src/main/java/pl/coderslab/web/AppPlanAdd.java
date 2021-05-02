@@ -1,6 +1,7 @@
 package pl.coderslab.web;
 
 import pl.coderslab.dao.PlanDao;
+import pl.coderslab.model.Admin;
 import pl.coderslab.model.Plan;
 
 import javax.servlet.*;
@@ -13,6 +14,9 @@ import java.time.LocalDateTime;
 public class AppPlanAdd extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Admin admin = (Admin) session.getAttribute("userData");
+        request.setAttribute("firstName", admin.getFirstName());
         getServletContext().getRequestDispatcher("/app-add-schedules.jsp").forward(request, response);
     }
 

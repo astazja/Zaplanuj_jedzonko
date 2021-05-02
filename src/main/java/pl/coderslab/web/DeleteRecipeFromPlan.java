@@ -13,6 +13,9 @@ import java.io.IOException;
 public class DeleteRecipeFromPlan extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Admin admin = (Admin) session.getAttribute("userData");
+        request.setAttribute("firstName", admin.getFirstName());
 
         request.setAttribute("planId",request.getParameter("planId"));
         request.setAttribute("recipeId",request.getParameter("recipeId"));

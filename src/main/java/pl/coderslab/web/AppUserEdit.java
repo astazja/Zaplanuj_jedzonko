@@ -13,6 +13,10 @@ public class AppUserEdit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+
+        Admin adminName = (Admin) session.getAttribute("userData");
+        request.setAttribute("firstName", adminName.getFirstName());
+
         if(session.getAttribute("userId") != null) {
             AdminDao adminDao = new AdminDao();
             Admin admin = adminDao.read(Integer.valueOf(String.valueOf(session.getAttribute("userId"))));

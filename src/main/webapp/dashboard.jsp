@@ -18,8 +18,9 @@
 <body>
 
 <c:import url="app-header.jsp"></c:import>
-
-<c:import url="side-bar.jsp"></c:import>
+<section class="dashboard-section">
+    <div class="row dashboard-nowrap">
+        <c:import url="app-side-menu.jsp"></c:import>
 
         <div class="m-4 p-4 width-medium">
             <div class="dashboard-header m-4">

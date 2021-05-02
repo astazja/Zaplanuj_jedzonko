@@ -14,6 +14,10 @@ import java.util.List;
 public class AppPasswordEdit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Admin admin = (Admin) session.getAttribute("userData");
+        request.setAttribute("firstName", admin.getFirstName());
+
         getServletContext().getRequestDispatcher("/app-pass-edit.jsp").forward(request, response);
     }
 
@@ -24,6 +28,7 @@ public class AppPasswordEdit extends HttpServlet {
             List <String> warnings = new ArrayList<>();
             Integer id = Integer.valueOf(String.valueOf(session.getAttribute("userId")));
             String password = request.getParameter("password");
+//            Walidacja danych, brak wyświetlania
             String repassword = request.getParameter("repassword");
 
             if(password.isEmpty() || repassword.isEmpty()) {
