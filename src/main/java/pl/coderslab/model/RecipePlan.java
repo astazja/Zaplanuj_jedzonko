@@ -1,7 +1,7 @@
 package pl.coderslab.model;
 
 
-public class RecipePlan { 
+public class RecipePlan {
     private Integer id;
     private Integer recipeId;
     private String mealName;
@@ -17,13 +17,6 @@ public class RecipePlan {
         this.mealName = mealName;
         this.displayOrder = displayOrder;
         this.dayNameId = dayNameId;
-    }
-    
-    public RecipePlan (Integer id, Integer recipeId, String mealName, Integer displayOrder, Integer planId) {
-        this.id = id;
-        this.recipeId = recipeId;
-        this.mealName = mealName;
-        this.displayOrder = displayOrder;
         this.planId = planId;
     }
 
