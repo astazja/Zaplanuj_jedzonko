@@ -42,7 +42,7 @@ public class AppPasswordEdit extends HttpServlet {
                 AdminDao adminDao = new AdminDao();
                 Admin admin = adminDao.read(id);
                 admin.setPassword(password);
-                adminDao.update(admin);
+                adminDao.updatePass(admin);
                 response.sendRedirect(request.getContextPath() + "/");
             }
         }

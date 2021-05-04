@@ -17,7 +17,8 @@ public class AdminDao {
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins where id = ?;";
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT * FROM admins;";
     private static final String READ_ADMIN_QUERY = "SELECT * from admins where id = ?;";
-    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name = ? , last_name = ?, email = ?, password = ?, superadmin = ?, enable = ? WHERE id = ?;";
+    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name = ? , last_name = ?, email = ?, superadmin = ?, enable = ? WHERE id = ?;";
+    private static final String UPDATE_ADMIN_PASS_QUERY = "UPDATE admins SET password = ? WHERE id = ?;";
     private static final String AUTH_ADMIN_QUERY = "SELECT * FROM admins WHERE email = ?";
 
     public Admin create(Admin admin) {
@@ -81,10 +82,22 @@ public class AdminDao {
             statement.setString(1, admin.getFirstName());
             statement.setString(2, admin.getLastName());
             statement.setString(3, admin.getEmail());
-            statement.setString(4, this.hashPassword(admin.getPassword()));
-            statement.setByte(5, admin.getSuperadmin());
-            statement.setByte(6, admin.getEnable());
-            statement.setInt(7, admin.getId());
+            statement.setByte(4, admin.getSuperadmin());
+            statement.setByte(5, admin.getEnable());
+            statement.setInt(6, admin.getId());
+
+            statement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void updatePass(Admin admin) {
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_ADMIN_PASS_QUERY)) {
+            statement.setString(1, this.hashPassword(admin.getPassword()));
+            statement.setInt(2, admin.getId());
 
             statement.executeUpdate();
         } catch (Exception e) {

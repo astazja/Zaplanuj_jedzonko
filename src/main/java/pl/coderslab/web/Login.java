@@ -47,10 +47,10 @@ public class Login extends HttpServlet {
             if (admin != null){
                 HttpSession session = req.getSession();
 
-                if (session.getAttribute("userId") == null){
+//                if (session.getAttribute("userId") == null){
                     session.setAttribute("userId", admin.getId());
                     session.setAttribute("userData", admin);
-                }
+//                }
 
                 resp.sendRedirect(req.getContextPath() + "/dashboard");
             } else {
