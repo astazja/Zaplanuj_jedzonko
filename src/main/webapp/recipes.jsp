@@ -28,6 +28,13 @@
     </div>
 </section>
 
+<section>
+    <form class="form-inline" method="get" action="/recipes">
+        <input class="form-control" style="width: 80%" type="search" placeholder="Szukaj przepisu" aria-label="Search" name="search" id="search">
+        <button class="btn btn-outline-success" style="width: 20%" type="submit">Szukaj</button>
+    </form>
+</section>
+
 <section class="mr-4 ml-4">
     <table class="table">
         <thead>

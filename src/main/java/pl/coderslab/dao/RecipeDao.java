@@ -16,6 +16,7 @@ public class RecipeDao {
     private static final String UPDATE_RECIPE_QUERY = "UPDATE recipe SET name = ?, ingredients = ?, description = ?, created = ?, updated = ?, preparation_time = ?, preparation = ?, admin_id = ? WHERE id = ?;";
     private static final String DELETE_RECIPE_QUERY = "DELETE FROM recipe WHERE id = ?;";
     private static final String FIND_ALL_RECIPES_QUERY = "SELECT * FROM recipe;";
+    private static final String FIND_RECIPES_QUERY = "SELECT * FROM recipe where name like ?;";
     private static final String NUMBER_OF_ADDED_RECIPE = "SELECT COUNT(*) FROM recipe;";
 
     public Recipe createRecipe(Recipe recipe) {
@@ -93,6 +94,23 @@ public class RecipeDao {
         List<Recipe> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_QUERY);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Recipe recipeToAdd = new Recipe();
+                getFromDatabase(resultSet, recipeToAdd);
+                recipeList.add(recipeToAdd);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+    }
+
+    public List<Recipe> findRecipes(String search) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(FIND_RECIPES_QUERY);
+            statement.setString(1, "%"+search+"%");
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Recipe recipeToAdd = new Recipe();
