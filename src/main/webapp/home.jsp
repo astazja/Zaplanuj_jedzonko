@@ -11,35 +11,13 @@
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
-    <link href='<c:url value="/css/style.css"/>' rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-around">
-        <a href="/" class="navbar-brand main-logo">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <ul class="nav nounderline text-uppercase">
-            <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="login.html">logowanie</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link color-header" href="registration.html">rejestracja</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link" href="#about">o aplikacji</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link disabled" href="recipes.html">Przepisy</a>
-            </li>
-            <li class="nav-item ml-4">
-                <a class="nav-link disabled" href="#contact">Kontakt</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+
+<c:import url="header.jsp"></c:import>
 
 <section class="padding-large bg-light">
     <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
@@ -92,7 +70,7 @@
         </div>
         <div class="ml-4 align-self-center">
             <button class="btn btn-color rounded-0 mt-4 pl-4 pr-4">
-                <a href="index.html">Lorem ipsum</a>
+                <a href="/">Lorem ipsum</a>
             </button>
         </div>
     </div>
@@ -123,7 +101,6 @@
     </div>
 </section>
 
-
 <section class="newsletter-section padding-small">
     <div class="container">
         <div class="row">
@@ -133,10 +110,10 @@
             <div class="col-5">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control border-0 rounded-0" placeholder=""
-                           aria-label="Recipient's username" aria-describedby="basic-addon2">
+                           aria-label="Recipient's username" aria-describedby="basic-addon3">
                     <div class="input-group-append">
-                        <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2">
-                            <a href="index.html">Lorem</a>
+                        <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon3">
+                            <a href="/">Lorem</a>
                         </button>
                     </div>
                 </div>
@@ -145,73 +122,7 @@
     </div>
 </section>
 
-<section class="padding-medium story bg-light" id="about">
-    <div class="container d-flex justify-content-center align-items-center">
-        <div class="row">
-            <div class="col-4 mr-4">
-                <div class="div-img">
-                </div>
-            </div>
-
-            <div class="col-7 ml-4">
-                <h1 class="pb-1">Lorem ipsum dolor sit amet</h1>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat
-                    volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed. Lorem ipsum dolor sit
-                    amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec
-                    placerat nisl magna, et faucibus arcu condimentum sed.
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="last-info-section padding-small" id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h3 class="mb-4">Lorem ipsum dolor</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem.  Aliquam erat volutpat. Donec placerat nisl magna.</p>
-            </div>
-            <div class="col pl-4 ml-4">
-                <h3 class="mb-4">Lorem ipsum dolor</h3>
-                <ul class="container">
-                    <li>consectetur adipiscing elit</li>
-                    <li>sed do eiusmod tempor</li>
-                    <li>incididunt ut labore</li>
-                    <li>et dolore magna aliqua</li>
-                </ul>
-            </div>
-            <div class="col">
-                <h3 class="mb-4">Lorem ipsum dolor</h3>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control border-0 rounded-0" placeholder=""
-                           aria-label="Recipient's username" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                        <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2"><a
-                                href="index.html">Lorem</a></button>
-                    </div>
-                </div>
-                <div class="container d-flex-row">
-                    <a href="#">
-                        <i class="fab fa-facebook-square mr-4 icon-social"></i>
-                    </a>
-                    <a href="#">
-                        <i class="fab fa-twitter-square mr-4 icon-social"></i>
-
-                    </a>
-                    <a href="#">
-                        <i class="fab fa-instagram icon-social"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<footer class="footer-section pt-3 pb-3">
-    <div class="container text-center">
-        <h5 class="text-light">Copyright <span class="footer-text-color">ZaplanujJedzonko.pl</span></h5>
-    </div>
-</footer>
+<c:import url="footer.jsp"></c:import>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

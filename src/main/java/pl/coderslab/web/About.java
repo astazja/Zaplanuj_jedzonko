@@ -7,16 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Do not change servlet address !!!
- */
-@WebServlet("")
-public class HomeServlet extends HttpServlet {
-
+@WebServlet(name = "About", value = "/about")
+public class About extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        getServletContext().getRequestDispatcher("/home.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/about.jsp").forward(req, resp);
     }
 
     @Override
